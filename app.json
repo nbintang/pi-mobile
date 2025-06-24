@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.bxntang.pimobile"
     },
     "web": {
       "bundler": "metro",
@@ -32,15 +33,11 @@
     },
     "plugins": [
       "expo-router",
-       [
+      [
         "expo-splash-screen",
         {
           "backgroundColor": "#232323",
-          "image": "./assets/splash-icon.png",
-          "dark": {
-            "image": "./assets/splash-icon-dark.png",
-            "backgroundColor": "#000000"
-          },
+          "image": "./assets/images/image.png",
           "imageWidth": 200
         }
       ]
