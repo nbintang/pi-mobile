@@ -124,9 +124,9 @@ export default function Screen() {
                       <Text
                         className={cn(
                           "text-sm mb-1",
-                          key === "segar" && "text-green-300",
-                          key === "bukan_daging" && "text-yellow-300",
-                          key === "busuk" && "text-red-300"
+                          key === "FRESH" && "text-green-300",
+                          key === "NOT_MEAT" && "text-yellow-300",
+                          key === "NOT_FRESH" && "text-red-300"
                         )}
                       >
                         {formatLabel(key)}: {(value * 100).toFixed(1)}%
@@ -134,9 +134,9 @@ export default function Screen() {
                       <Progress
                         value={value * 100}
                         indicatorClassName={cn(
-                          key === "segar" && "bg-green-500",
-                          key === "bukan_daging" && "bg-yellow-500",
-                          key === "busuk" && "bg-red-500"
+                          key === "FRESH" && "bg-green-500",
+                          key === "NOT_MEAT" && "bg-yellow-500",
+                          key === "NOT_FRESH" && "bg-red-500"
                         )}
                       />
                     </View>

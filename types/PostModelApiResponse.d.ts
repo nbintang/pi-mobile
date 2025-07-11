@@ -19,28 +19,12 @@ export interface PostPredictions {
   };
   raw_model_output: number[];
   raw_probabilities_by_class_name: {
-    segar: number;
-    bukan_daging: number;
-    busuk: number;
+    [className: string]: number; // Gunakan key dinamis karena bisa 'FRESH', 'NOT_FRESH', dll.
   };
   overall_prediction: {
     class: string;
     confidence_percentage: string;
     confidence_raw_value: number;
-  };
-  class_probabilities: {
-    segar: {
-      percentage: string;
-      raw_value: number;
-    };
-    bukan_daging: {
-      percentage: string;
-      raw_value: number;
-    };
-    busuk: {
-      percentage: string;
-      raw_value: number;
-    };
   };
   uploaded_image_url: string;
   processing_time_ms: number;

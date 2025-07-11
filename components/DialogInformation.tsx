@@ -70,11 +70,7 @@ const DialogInformation = ({
     },
   ];
 
-  console.log({
-    expectedClassNames,
-    howToUse,
-    sections,
-  });
+
   return (
     <View className="absolute top-3 right-4 z-10">
       <Dialog>
