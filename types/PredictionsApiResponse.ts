@@ -4,9 +4,7 @@ export interface Predictions {
   predicted_class: string;
   confidence: number;
   probabilities: {
-    busuk: number;
-    segar: number;
-    bukan_daging: number;
+    [className: string]: number; 
   };
   image_url: string;
   created_at: string;
