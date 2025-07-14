@@ -1,10 +1,8 @@
 import * as React from "react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTrigger,
 } from "~/components/ui/dialog";
@@ -23,8 +21,9 @@ import {
 } from "lucide-react-native";
 import { Button } from "./ui/button";
 import { Text } from "~/components/ui/text";
-import { TouchableOpacity, View } from "react-native";
+import { Linking, TouchableOpacity, View } from "react-native";
 import { cn, formatLabels } from "../lib/utils";
+import { sectionhowToUse, sectionTechs } from "~/lib/dummy";
 
 const DialogInformation = ({
   isSuccess,
@@ -53,23 +52,6 @@ const DialogInformation = ({
       data: expectedClassNames,
     },
   ];
-  const howToUse = [
-    "You can take a photo or select a photo from the gallery to classify the meat",
-    "then the result will be displayed on the screen",
-    "and you can retake the photo or select a photo from the gallery to classify the meat again",
-  ];
-
-  const sections = [
-    {
-      title: "Technologies Used",
-      data: ["Tensorflow", "Expo", "FastAPI"],
-    },
-    {
-      title: "Languages Used",
-      data: ["Python", "Typescript"],
-    },
-  ];
-
 
   return (
     <View className="absolute top-3 right-4 z-10">
@@ -79,7 +61,7 @@ const DialogInformation = ({
             <InfoIcon size={20} color={"#8a8e94"} />
           </Button>
         </DialogTrigger>
-        <DialogContent className="w-[90%] max-w-md max-h-[80%]">
+        <DialogContent className="w-[90%] max-w-md ">
           <DialogHeader className="pb-2">
             <View className="flex flex-row items-center gap-x-2">
               <BeefIcon color={"#8a8e94"} size={19} />
@@ -88,37 +70,33 @@ const DialogInformation = ({
                   "text-lg native:text-xl text-foreground font-semibold leading-none tracking-tight"
                 )}
               >
-                Welcome to Meat Classifier
+                Welcome to Meat Classifier!
               </Text>
             </View>
             <DialogDescription>
               <Text
-                className={cn("text-sm native:text-base text-muted-foreground")}
+                className={cn("text-sm native:text-sm text-muted-foreground")}
               >
-                What is this app? this app is a simple app that can classify
-                meat
+                This app is a tool that can help you identify the type of meat
+                based on its image.
               </Text>
             </DialogDescription>
           </DialogHeader>
           <View>
             <Separator className="mb-4" />
-
-            {/* How to use section */}
-            <View className="mb-4">
+            <View>
               <View className="flex flex-row mb-2 gap-x-2 items-center">
                 <InfoIcon size={16} color={"#8a8e94"} />
                 <Text className="font-semibold">How to use?</Text>
               </View>
-              {howToUse.map((item, index) => (
-                <View key={index} className="flex-row items-start mb-2 px-2">
+              {sectionhowToUse.map((item, index) => (
+                <View key={index} className="flex-row items-center mb-2 px-2">
                   <Text className="text-muted-foreground mr-2 mt-0.5">•</Text>
                   <Text className="text-muted-foreground text-xs flex-1 leading-4">
                     {item}
                   </Text>
                 </View>
               ))}
-
-              {/* Expected Output */}
               <View className="mt-3">
                 {expectedOutput.map((item, index) => (
                   <Collapsible
@@ -127,7 +105,6 @@ const DialogInformation = ({
                       setOpenCollapsible2(isOpen ? index : null)
                     }
                     key={`collapsible-${index}`}
-                    className="mb-2"
                   >
                     <CollapsibleTrigger asChild>
                       <TouchableOpacity className="flex flex-row items-center justify-between py-2 px-2 rounded-md bg-secondary/20">
@@ -143,11 +120,11 @@ const DialogInformation = ({
                         </View>
                       </TouchableOpacity>
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="py-2 px-2 border-b border-border">
+                    <CollapsibleContent className="py-2 px-2r">
                       {item.data.map((dataItem, itemIndex) => (
                         <View
                           key={`item-${index}-${itemIndex}`}
-                          className="flex-row items-start mb-1 ml-4"
+                          className="flex-row items-center ml-4"
                         >
                           <Text className="text-muted-foreground mr-2 mt-0.5">
                             •
@@ -173,7 +150,7 @@ const DialogInformation = ({
                   The app is powered by
                 </Text>
               </View>
-              {sections.map((section, sectionIndex) => (
+              {sectionTechs.map(({ data, ...section }, sectionIndex) => (
                 <Collapsible
                   open={openCollapsible === sectionIndex}
                   onOpenChange={(isOpen) =>
@@ -196,18 +173,21 @@ const DialogInformation = ({
                       </View>
                     </TouchableOpacity>
                   </CollapsibleTrigger>
-                  <CollapsibleContent className="py-2 px-2 border-b border-border">
-                    {section.data.map((item, itemIndex) => (
+                  <CollapsibleContent className="py-2 px-2">
+                    {data.map(({ name, url }, itemIndex) => (
                       <View
                         key={`item-${sectionIndex}-${itemIndex}`}
-                        className="flex-row items-start mb-1 ml-4"
+                        className="flex-row items-center  ml-4"
                       >
-                        <Text className="text-muted-foreground mr-2 mt-0.5">
-                          •
-                        </Text>
-                        <Text className="text-muted-foreground text-xs flex-1 leading-4">
-                          {item}
-                        </Text>
+                        <Text className="text-muted-foreground mr-2 ">•</Text>
+                        <Button
+                          variant={"link"}
+                          onPress={() => Linking.openURL(url)}
+                        >
+                          <Text className="text-muted-foreground text-xs flex-1 leading-4">
+                            {name}
+                          </Text>
+                        </Button>
                       </View>
                     ))}
                   </CollapsibleContent>
@@ -216,19 +196,15 @@ const DialogInformation = ({
             </View>
 
             {/* Creator credit */}
-            <View className="mt-2">
+            <View className="mt-2 flex justify-between">
               <Text className="text-xs text-muted-foreground">
                 Created By: @github.com/nbintang
               </Text>
+              <Text className="text-xs text-muted-foreground">
+                Feel free to use this app!
+              </Text>
             </View>
           </View>
-          <DialogFooter className="pt-4">
-            <DialogClose asChild>
-              <Button className="w-full">
-                <Text>OK</Text>
-              </Button>
-            </DialogClose>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </View>

@@ -13,9 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -38,12 +36,22 @@
         {
           "backgroundColor": "#232323",
           "image": "./assets/images/image.png",
-          "imageWidth": 200
+          "imageWidth": 150,
+          "dark": {
+            "image": "./assets/images/image.png",
+            "backgroundColor": "#000000"
+          }
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "fded21c9-a873-48dc-97d1-424455c5d3e4"
+      }
     }
   }
 }

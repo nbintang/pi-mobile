@@ -10,14 +10,7 @@ import { Link, SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import {
-  ActivityIndicator,
-  Animated,
-  Appearance,
-  Easing,
-  Image,
-  Platform,
-  StyleSheet,
-  View,
+  ActivityIndicator, Appearance, Platform, View
 } from "react-native";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";

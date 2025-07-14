@@ -1,11 +1,11 @@
 import * as React from "react";
-import { ActivityIndicator, View, Image } from "react-native";
+import { ActivityIndicator, View, Image, Pressable } from "react-native";
 import { Card, CardContent, CardFooter } from "~/components/ui/card";
 import { Text } from "~/components/ui/text";
 import useFetchModel from "~/hooks/api-hooks/useFetchModel";
 import { Button } from "~/components/ui/button";
 import { CameraIcon, Images } from "lucide-react-native";
-import { cn, formatLabel, formatLabels } from "~/lib/utils";
+import { cn, formatLabel } from "~/lib/utils";
 import { Progress } from "~/components/ui/progress";
 import usePostModel from "~/hooks/api-hooks/usePostModel";
 import { useImagePicker as useCameraHandler } from "~/hooks/useCameraHandler";
@@ -48,11 +48,12 @@ export default function Screen() {
 
   const retakeAndClear = async () => {
     camera.clearCapturedImage();
+    gallery.clearCapturedImageFromGallery();
     captureImages();
   };
-
   const retakeAndClearGallery = async () => {
     gallery.clearCapturedImageFromGallery();
+    camera.clearCapturedImage();
     pickGalleryImages();
   };
 
@@ -63,7 +64,6 @@ export default function Screen() {
       </View>
     );
   }
-
   if (error || isError) {
     return (
       <View className="flex-1 justify-center items-center p-6">
@@ -83,13 +83,13 @@ export default function Screen() {
   return (
     <View className="p-6 gap-2 grid place-items-center">
       <Card className="h-full rounded-xl flex justify-center items-center max-w-2xl relative">
-        <DialogInformation  data={data} isSuccess={isSuccess} />
+        <DialogInformation data={data} isSuccess={isSuccess} />
         <CardContent
           className={cn(
             "min-h-[224px] relative flex justify-center items-center rounded-xl",
             capturedImages
-              ? "m-0"
-              : "my-5 mx-4 border-dotted w-[224px] border-accent-foreground bg-accent/40 border"
+              ? "m-0 rounded-xl"
+              : "my-5 mx-4 border-dotted w-[224px] rounded-xl border-accent-foreground bg-accent/40 border"
           )}
         >
           {capturedImages ? (
@@ -135,8 +135,8 @@ export default function Screen() {
                         value={value * 100}
                         indicatorClassName={cn(
                           key === "FRESH" && "bg-green-500",
-                          key === "NOT_MEAT" && "bg-yellow-500",
-                          key === "NOT_FRESH" && "bg-red-500"
+                          key === "NOT_FRESH" && "bg-red-500",
+                          key === "NOT_MEAT" && "bg-yellow-500"
                         )}
                       />
                     </View>
@@ -145,12 +145,12 @@ export default function Screen() {
               )}
             </View>
           ) : (
-            <View className="flex-1 w-full gap-3 justify-center items-center">
+            <Pressable onPress={captureImages} className="flex-1 w-full gap-3  justify-center items-center">
               <Images color={"#8a8e94"} size={40} />
               <Text className="text-center text-muted-foreground">
                 No photo taken yet
               </Text>
-            </View>
+            </Pressable>
           )}
         </CardContent>
 
