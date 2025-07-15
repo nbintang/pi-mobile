@@ -1,10 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { AxiosResponse, isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import model from "~/lib/api/model";
 import { ApiResponse } from "~/types/ApiResponse";
 import { PostPredictions } from "~/types/PostModelApiResponse";
 import Toast from "react-native-toast-message";
-import * as FileSystem from "expo-file-system";
 import { ImagePickerAsset } from "expo-image-picker";
 
 const classifiedModel = async ({
@@ -33,7 +32,7 @@ const classifiedModel = async ({
   return data as ApiResponse<PostPredictions>;
 };
 
-export default function usePostModel() {
+export function usePostModel() {
   return useMutation({
     mutationKey: ["model"],
     mutationFn: async (file: ImagePickerAsset) =>

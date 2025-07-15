@@ -1,12 +1,11 @@
 
 import { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
 
 
 
-export const useImagePicker = () => {
+export const useCameraHandler = () => {
   const [capturedImage, setCapturedImage] = useState< ImagePicker.ImagePickerAsset | null>(
     null
   );
