@@ -1,7 +1,6 @@
-// hooks/useGalleryHandler.ts
+
 import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Alert } from "react-native";
 import Toast from "react-native-toast-message";
 
 export const useGalleryHandler = () => {

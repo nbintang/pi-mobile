@@ -117,35 +117,51 @@ export default function Screen() {
                   <Text className="font-semibold text-white">
                     Prediction Results:
                   </Text>
-                  {Object.entries(
-                    result.data.raw_probabilities_by_class_name
-                  ).map(([key, value], index) => (
-                    <View key={index} className="mb-2">
-                      <Text
-                        className={cn(
-                          "text-sm mb-1",
-                          key === "FRESH" && "text-green-300",
-                          key === "NOT_MEAT" && "text-yellow-300",
-                          key === "NOT_FRESH" && "text-red-300"
-                        )}
-                      >
-                        {formatLabel(key)}: {(value * 100).toFixed(1)}%
+                  {result.data.overall_prediction.confidence_raw_value > 0.70 ? (
+                    Object.entries(
+                      result.data.raw_probabilities_by_class_name
+                    ).map(([key, value], index) => (
+                      <View key={index} className="mb-2">
+                        <Text
+                          className={cn(
+                            "text-sm mb-1",
+                            key === "FRESH" && "text-green-300",
+                            key === "NOT_FRESH" && "text-red-300"
+                          )}
+                        >
+                          {formatLabel(key)}: {(value * 100).toFixed(1)}%
+                        </Text>
+                        <Progress
+                          value={value * 100}
+                          indicatorClassName={cn(
+                            key === "FRESH" && "bg-green-500",
+                            key === "NOT_FRESH" && "bg-red-500"
+                          )}
+                        />
+                      </View>
+                    ))
+                  ) : (
+                    <View className="mb-2">
+                      <Text className="text-sm mb-1 text-yellow-300">
+                        {formatLabel(result.data.overall_prediction.class)}:{result.data.overall_prediction.confidence_percentage}
                       </Text>
                       <Progress
-                        value={value * 100}
-                        indicatorClassName={cn(
-                          key === "FRESH" && "bg-green-500",
-                          key === "NOT_FRESH" && "bg-red-500",
-                          key === "NOT_MEAT" && "bg-yellow-500"
-                        )}
+                        value={
+                          result.data.overall_prediction.confidence_raw_value *
+                          100
+                        }
+                        indicatorClassName="bg-yellow-500"
                       />
                     </View>
-                  ))}
+                  )}
                 </View>
               )}
             </View>
           ) : (
-            <Pressable onPress={captureImages} className="flex-1 w-full gap-3  justify-center items-center">
+            <Pressable
+              onPress={captureImages}
+              className="flex-1 w-full gap-3  justify-center items-center"
+            >
               <Images color={"#8a8e94"} size={40} />
               <Text className="text-center text-muted-foreground">
                 No photo taken yet

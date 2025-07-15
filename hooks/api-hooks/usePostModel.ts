@@ -52,7 +52,6 @@ export default function usePostModel() {
     },
     onError: (error) => {
       if (isAxiosError(error)) {
-        console.log(error.response?.data?.message);
         Toast.show({
           type: "error",
           text1: error.response?.data?.message || "Terjadi kesalahan",

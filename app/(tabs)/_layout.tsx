@@ -43,7 +43,6 @@ const usePlatformSpecificSetup = Platform.select({
   android: useSetAndroidNavigationBar,
   default: noop,
 });
-// SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   usePlatformSpecificSetup();
   const { isDarkColorScheme } = useColorScheme();
@@ -110,13 +109,13 @@ export default function RootLayout() {
                 <Link href={"/(tabs)"} asChild>
                   <View className="flex-row-reverse gap-x-2 items-center ">
                     <Text className="text-lg font-semibold">
-                      Meat Classifier{" "}
+                      Meat Classifier
                     </Text>
                     <BeefIcon size={20} color={"#570d14"} />
                   </View>
                 </Link>
               ),
-              headerTitle: "", // optional: remove default title if needed
+              headerTitle: "", 
             }}
           />
         </Stack>
@@ -134,7 +133,6 @@ const useIsomorphicLayoutEffect =
 
 function useSetWebBackgroundClassName() {
   useIsomorphicLayoutEffect(() => {
-    // Adds the background color to the html element to prevent white background on overscroll.
     document.documentElement.classList.add("bg-background");
   }, []);
 }

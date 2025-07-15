@@ -19,10 +19,10 @@ export interface PostPredictions {
   };
   raw_model_output: number[];
   raw_probabilities_by_class_name: {
-    [className: string]: number; // Gunakan key dinamis karena bisa 'FRESH', 'NOT_FRESH', dll.
+    [className: string]: number; 
   };
   overall_prediction: {
-    class: string;
+    class: "FRESH" | "NOT_FRESH" | "NOT_MEAT";
     confidence_percentage: string;
     confidence_raw_value: number;
   };
