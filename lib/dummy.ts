@@ -36,3 +36,17 @@ export const sectionTechs = [
     ],
   },
 ];
+
+export const sectionDevelopers = [
+  {
+    name: "Bintang Hidayat",
+    role: "Lead Developer",
+    program: "Informatics Engineering",
+    year: "2025",
+    contacts: [
+      { name: "GitHub", url: "https://github.com/nbintang" },
+      { name: "LinkedIn", url: "https://linkedin.com/in/bintang" },
+      { name: "Email", url: "mailto:bintang@example.com" }
+    ]
+  }, 
+];
