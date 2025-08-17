@@ -20,7 +20,7 @@ const fetchHistories = async ({
   return modelInfo;
 };
 
-export default function useFetchModel({
+export  function useFetchModel({
   limit,
   offset,
 }: {

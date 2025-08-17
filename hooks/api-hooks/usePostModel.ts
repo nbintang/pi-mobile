@@ -32,7 +32,7 @@ const classifiedModel = async ({
   return data as ApiResponse<PostPredictions>;
 };
 
-export default function usePostModel() {
+export function usePostModel() {
   return useMutation({
     mutationKey: ["model"],
     mutationFn: async (file: ImagePickerAsset) =>

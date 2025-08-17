@@ -1,43 +1,22 @@
 import "~/global.css";
-
-import {
-  DarkTheme,
-  DefaultTheme,
-  Theme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { ThemeProvider } from "@react-navigation/native";
 import { Link, SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
-import {
-  ActivityIndicator, Appearance, Platform, View
-} from "react-native";
-import { NAV_THEME } from "~/lib/constants";
+import { ActivityIndicator, Platform, View } from "react-native";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "@rn-primitives/portal";
 import { ThemeToggle } from "~/components/ThemeToggle";
-import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { ReactQueryProvider } from "../../providers/ReactQueryProviders";
 import { LogBox } from "react-native";
 import { Text } from "~/components/ui/text";
 import { cn } from "~/lib/utils";
 import Toast from "react-native-toast-message";
 import { BeefIcon } from "lucide-react-native";
-
+import { noop, useSetAndroidNavigationBar, useSetWebBackgroundClassName} from "~/lib/platform";
+import { DARK_THEME, LIGHT_THEME } from "~/lib/theme";
 LogBox.ignoreLogs(["Invalid prop `style` supplied to `React.Fragment`"]);
-const LIGHT_THEME: Theme = {
-  ...DefaultTheme,
-  colors: NAV_THEME.light,
-};
-const DARK_THEME: Theme = {
-  ...DarkTheme,
-  colors: NAV_THEME.dark,
-};
-
-export {
-  ErrorBoundary,
-} from "expo-router";
-
+export { ErrorBoundary } from "expo-router";
 const usePlatformSpecificSetup = Platform.select({
   web: useSetWebBackgroundClassName,
   android: useSetAndroidNavigationBar,
@@ -115,7 +94,7 @@ export default function RootLayout() {
                   </View>
                 </Link>
               ),
-              headerTitle: "", 
+              headerTitle: "",
             }}
           />
         </Stack>
@@ -125,22 +104,3 @@ export default function RootLayout() {
     </ThemeProvider>
   );
 }
-
-const useIsomorphicLayoutEffect =
-  Platform.OS === "web" && typeof window === "undefined"
-    ? React.useEffect
-    : React.useLayoutEffect;
-
-function useSetWebBackgroundClassName() {
-  useIsomorphicLayoutEffect(() => {
-    document.documentElement.classList.add("bg-background");
-  }, []);
-}
-
-function useSetAndroidNavigationBar() {
-  React.useLayoutEffect(() => {
-    setAndroidNavigationBar(Appearance.getColorScheme() ?? "light");
-  }, []);
-}
-
-function noop() {}

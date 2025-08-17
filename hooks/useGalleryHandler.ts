@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import Toast from "react-native-toast-message";
